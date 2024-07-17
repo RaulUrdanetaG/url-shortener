@@ -7,8 +7,10 @@ export const createUrl = async (
 ) => {
   try {
     const { fullUrl } = req.body;
+    new URL(fullUrl);
+
     const urlFound = await urlModel.find({ fullUrl: fullUrl });
-    if (urlFound.length > 0) return res.status(409).send(urlFound);
+    if (urlFound.length > 0) return res.send(urlFound);
 
     const shortUrl = await urlModel.create({ fullUrl });
 
